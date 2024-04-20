@@ -1,6 +1,6 @@
 @Heizenbrew_HostAddress = http://localhost:5031
 
-GET {{Heizenbrew_HostAddress}}/weatherforecast/
+GET {{Heisenbrew_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
