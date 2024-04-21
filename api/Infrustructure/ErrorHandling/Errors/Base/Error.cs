@@ -4,11 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core
+namespace Infrustructure.ErrorHandling.Errors.Base
 {
-    public enum Roles
-    {
-        Administrator,
-        Brewer
-    }
+    public sealed record Error(string Code, string? Message = null);
+
 }

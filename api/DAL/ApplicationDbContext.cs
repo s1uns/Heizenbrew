@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    internal class ApplicationDbContext : IdentityDbContext<IdentityUser>
+    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
         public required DbSet<Brewer> Brewers { get; set; }
         public required DbSet<BrewerBrewingEquipment> BrewerBrewingEquipment { get; set; }
