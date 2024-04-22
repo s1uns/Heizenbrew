@@ -11,5 +11,6 @@ namespace Core.Models
         public Brewing Brewing { get; set; }
         public BrewingLogCode BrewingLogCode { get; set; }
         public string Message { get; set; }
+        public DateTime LogTime { get; set; }
     }
 }

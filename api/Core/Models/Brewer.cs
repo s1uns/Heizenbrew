@@ -1,4 +1,5 @@
 ﻿using Core.Models.Equipment;
+using Core.Models.Ingredient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +13,12 @@ namespace Core.Models
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
-        public string PhoneNumber { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public string ProfileColor { get; set; } = string.Empty;
 
+        public ICollection<Recipe> Recipes { get; set; }
         public ICollection<BrewerBrewingEquipment> Equipment { get; set; }
+        public ICollection<BrewerIngredient> Ingredients { get; set;}
 
     }
 }

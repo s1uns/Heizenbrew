@@ -6,7 +6,7 @@ using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace BLL.Services.IdentityManagement
+namespace BLL.IdentityManagement
 {
     public class JwtTokenGenerator : ITokenGenerator
     {

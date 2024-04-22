@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace megamart_api.Controllers
+namespace heisenbrew_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -19,9 +19,9 @@ namespace megamart_api.Controllers
         }
 
         /// <summary>
-        /// Creates a new customer account.
+        /// Creates a new brewer account.
         /// </summary>
-        /// <param name="request">The request to create a customer account.</param>
+        /// <param name="request">The request to create a brewer account.</param>
         /// <remarks>
         /// If the operation is successful, it will return a SignUpResultDto.
         /// </remarks>

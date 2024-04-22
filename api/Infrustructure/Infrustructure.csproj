@@ -11,9 +11,4 @@
     <ProjectReference Include="..\Core\Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Dto\UserProfile\" />
-    <Folder Include="ErrorHandling\Exceptions\Services\Category\" />
-  </ItemGroup>
-
 </Project>

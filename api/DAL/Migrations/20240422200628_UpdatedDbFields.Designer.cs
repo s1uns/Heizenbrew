@@ -3,6 +3,7 @@ using System;
 using DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240422200628_UpdatedDbFields")]
+    partial class UpdatedDbFields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,7 +52,7 @@ namespace DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Brewers", (string)null);
+                    b.ToTable("Brewers");
                 });
 
             modelBuilder.Entity("Core.Models.Brewing", b =>
@@ -68,7 +71,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("BrewerBrewingEquipmentId");
 
-                    b.ToTable("Brewings", (string)null);
+                    b.ToTable("Brewings");
                 });
 
             modelBuilder.Entity("Core.Models.BrewingLog", b =>
@@ -94,7 +97,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("BrewingId");
 
-                    b.ToTable("BrewingLogs", (string)null);
+                    b.ToTable("BrewingLogs");
                 });
 
             modelBuilder.Entity("Core.Models.Equipment.BrewerBrewingEquipment", b =>
@@ -119,7 +122,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("BrewingEquipmentId");
 
-                    b.ToTable("BrewerBrewingEquipment", (string)null);
+                    b.ToTable("BrewerBrewingEquipment");
                 });
 
             modelBuilder.Entity("Core.Models.Equipment.BrewingEquipment", b =>
@@ -145,7 +148,7 @@ namespace DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BrewingEquipment", (string)null);
+                    b.ToTable("BrewingEquipment");
                 });
 
             modelBuilder.Entity("Core.Models.Ingredient.BrewerIngredient", b =>
@@ -169,7 +172,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("IngredientId");
 
-                    b.ToTable("BrewerIngredients", (string)null);
+                    b.ToTable("BrewerIngredients");
                 });
 
             modelBuilder.Entity("Core.Models.Ingredient.Ingredient", b =>
@@ -188,7 +191,7 @@ namespace DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Ingredients", (string)null);
+                    b.ToTable("Ingredients");
                 });
 
             modelBuilder.Entity("Core.Models.Ingredient.RecipeIngredient", b =>
@@ -207,7 +210,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("IngredientId");
 
-                    b.ToTable("RecipeIngredients", (string)null);
+                    b.ToTable("RecipeIngredients");
                 });
 
             modelBuilder.Entity("Core.Models.Recipe", b =>
@@ -231,7 +234,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("BrewerId");
 
-                    b.ToTable("Recipes", (string)null);
+                    b.ToTable("Recipes");
                 });
 
             modelBuilder.Entity("Core.Models.RecipeVote", b =>
@@ -255,7 +258,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("RecipeId");
 
-                    b.ToTable("RecipeVotes", (string)null);
+                    b.ToTable("RecipeVotes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -470,7 +473,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("RecipesId");
 
-                    b.ToTable("RecipeRecipeIngredient", (string)null);
+                    b.ToTable("RecipeRecipeIngredient");
                 });
 
             modelBuilder.Entity("Core.Models.Brewing", b =>

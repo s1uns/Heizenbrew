@@ -10,5 +10,6 @@ namespace Core.Models.Ingredient
     {
         public Ingredient Ingredient { get; set; }
         public double Weight { get; set; }
+        public ICollection<Recipe> Recipes { get; set; }
     }
 }

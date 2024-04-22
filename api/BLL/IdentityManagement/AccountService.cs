@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Infrustructure.Extensions;
 using DAL;
 
-namespace BLL.Services.IdentityManagement
+namespace BLL.IdentityManagement
 {
     public class AccountService : IAccountService
     {
@@ -54,11 +54,12 @@ namespace BLL.Services.IdentityManagement
                 await _userManager.AddToRoleAsync(identityUser, Roles.Brewer.ToString());
 
                 var brewer = new Brewer
-                {                 
+                {
 
                     Id = Guid.Parse(identityUser.Id),
                     Email = credentials.Email,
                     CreatedAt = DateTime.UtcNow,
+                    ProfileColor = "000000"
                 };
 
                 await _context.Brewers.AddAsync(brewer);

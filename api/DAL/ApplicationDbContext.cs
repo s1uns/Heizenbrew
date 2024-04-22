@@ -22,8 +22,8 @@ namespace DAL
         public required DbSet<BrewerIngredient> BrewerIngredients { get; set; }
         public required DbSet<Ingredient> Ingredients { get; set; }
         public required DbSet<RecipeIngredient> RecipeIngredients { get; set; }
-
         public required DbSet<Recipe> Recipes { get; set; }
+        public required DbSet<RecipeVote> RecipeVotes { get; set; }
 
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)

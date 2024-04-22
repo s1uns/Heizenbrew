@@ -2,7 +2,10 @@
 
 
 using BLL.IdentityManagement.Interfaces;
-using BLL.Services.IdentityManagement;
+using BLL.ProfileManagement;
+using BLL.IdentityManagement;
+using BLL.ProfileManagement.Interface;
+using BLL.EquipmentManagement;
 
 namespace heisenbrew_api.BuildExtensions
 {
@@ -12,8 +15,9 @@ namespace heisenbrew_api.BuildExtensions
         {
             services.AddScoped<ITokenGenerator, JwtTokenGenerator>();
             services.AddScoped<IAccountService, AccountService>();
-/*            services.AddScoped<IProfileService, ProfileService>();
-*/
+            services.AddScoped<IProfileService, ProfileService>();
+            services.AddScoped<IEquipmentService, EquipmentService>();
+
         }
     }
 }
