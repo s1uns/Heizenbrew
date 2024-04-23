@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Core.Models.Equipment;
-using Infrustructure.Dto.EquipmentDto;
+using Infrustructure.Dto.Equipment;
 
 namespace heisenbrew_api.Mapper
 {

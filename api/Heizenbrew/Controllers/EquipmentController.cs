@@ -1,13 +1,12 @@
 ﻿using BLL.EquipmentManagement;
 using Core;
-using Infrustructure.Dto.Account;
-using Infrustructure.Dto.EquipmentDto;
+using Infrustructure.Dto.Equipment;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace heisenbrew_api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/equipment")]
     [ApiController]
     public class EquipmentController : ControllerBase
     {
@@ -18,13 +17,15 @@ namespace heisenbrew_api.Controllers
             _equipmentService = equipmentService;
         }
 
+        [Authorize(Roles = nameof(Roles.Administrator))]
         [HttpPost("create")]
         public async Task<IActionResult> CreateBrewingEquipment([FromBody] CreateBrewingEquipmentDto request)
         {
             var result = await _equipmentService.AddEquipmentAsync(request);
             return this.CreateResponse(result);
         }
-        
+
+        [Authorize(Roles = nameof(Roles.Administrator))]
         [HttpPut("update")]
         public async Task<IActionResult> UpdateBrewingEquipment([FromBody] UpdateBrewingEquipmentDto request)
         {
@@ -32,6 +33,7 @@ namespace heisenbrew_api.Controllers
             return this.CreateResponse(result);
         }
 
+        [Authorize(Roles = nameof(Roles.Administrator))]
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> DeleteBrewingEquipment(Guid id)
         {

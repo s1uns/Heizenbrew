@@ -1,4 +1,4 @@
-﻿using Infrustructure.Dto.EquipmentDto;
+﻿using Infrustructure.Dto.Equipment;
 using System;
 using System.Collections.Generic;
 using System.Linq;

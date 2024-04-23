@@ -1,4 +1,4 @@
-﻿using Infrustructure.ErrorHandling.Exceptions.Extensions;
+﻿using Infrustructure.ErrorHandling.Exceptions.Services.Account;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 
@@ -51,6 +51,24 @@ namespace Infrustructure.Extensions
             }
 
             throw new IdentityEmailNotFoundException("Couldn't get identity's email");
+        }
+
+        public static bool TryGetUserRole(this IHttpContextAccessor accessor, out string userRole)
+        {
+            return accessor.HttpContext.TryGetUserRole(out userRole);
+        }
+
+        public static bool TryGetUserRole(this HttpContext? context, out string userRole)
+        {
+            var identityRole = context?.User?.Claims?.Single(c => c.Type == ClaimTypes.Role).Value;
+
+            if (!string.IsNullOrEmpty(identityRole))
+            {
+                userRole = identityRole;
+                return true;
+            }
+
+            throw new IdentityRoleNotFoundException("Couldn't get identity's role");
         }
 
         public static bool IsUserAuthenticated(this IHttpContextAccessor accessor)

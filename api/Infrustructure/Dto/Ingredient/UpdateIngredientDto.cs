@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrustructure.Dto.EquipmentDto
+namespace Infrustructure.Dto.Ingredient
 {
-    public record BrewingEquipmentFullInfoDto
+    public record UpdateIngredientDto
     (
         Guid Id,
         string Name,
-        string Description,
-        string ImgUrl,
-        decimal Price
+        decimal Price,
+        string ImgUrl
     );
 }

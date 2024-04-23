@@ -1,5 +1,5 @@
 ﻿using Core;
-using Infrustructure.Dto.EquipmentDto;
+using Infrustructure.Dto.Equipment;
 using Infrustructure.ErrorHandling.Errors.Base;
 
 namespace BLL.EquipmentManagement

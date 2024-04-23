@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrustructure.Dto.EquipmentDto
+namespace Infrustructure.Dto.Equipment
 {
-    public record BrewingEquipmentShortInfoDto
+    public record BrewerBrewingEquipmentFullInfoDto
     (
         Guid Id,
         string Name,
         string ImgUrl,
-        decimal Price
+        string ConnectionString
     );
 }

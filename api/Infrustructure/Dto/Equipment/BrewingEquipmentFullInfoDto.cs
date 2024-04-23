@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrustructure.Dto.EquipmentDto
+namespace Infrustructure.Dto.Equipment
 {
-    public record CreateBrewingEquipmentDto
+    public record BrewingEquipmentFullInfoDto
     (
+        Guid Id,
         string Name,
         string Description,
         string ImgUrl,
