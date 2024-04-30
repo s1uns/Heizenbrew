@@ -60,25 +60,15 @@ namespace Infrustructure.Extensions
 
         public static bool TryGetUserRole(this HttpContext? context, out string userRole)
         {
-            var identityRole = context?.User?.Claims?.Single(c => c.Type == ClaimTypes.Role).Value;
+            var identityRole = context?.User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
 
-            if (!string.IsNullOrEmpty(identityRole))
+            if (identityRole is not null)
             {
                 userRole = identityRole;
                 return true;
             }
 
             throw new IdentityRoleNotFoundException("Couldn't get identity's role");
-        }
-
-        public static bool IsUserAuthenticated(this IHttpContextAccessor accessor)
-        {
-            return accessor.HttpContext.IsUserAuthenticated();
-        }
-
-        public static bool IsUserAuthenticated(this HttpContext? context)
-        {
-            return context.User.Identity.IsAuthenticated;
         }
     }
 }

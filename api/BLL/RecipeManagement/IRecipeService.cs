@@ -12,8 +12,8 @@ namespace BLL.RecipeManagement
     public interface IRecipeService
     {
         public Task<Result<string, Error>> CreateRecipeAsync(CreateRecipeDto createRecipeDto);
-        public Task<Result<string, Error>> UpdateRecipeAsync(CreateRecipeDto createRecipeDto);
-        public Task<Result<string, Error>> DeleteRecipeAsync(CreateRecipeDto createRecipeDto);
+        public Task<Result<string, Error>> UpdateRecipeAsync(UpdateRecipeDto updateRecipeDto);
+        public Task<Result<string, Error>> DeleteRecipeAsync(Guid recipeId);
         public Task<Result<string, Error>> VoteRecipeAsync(Guid recipeId, string voteStatus);
     }
 }

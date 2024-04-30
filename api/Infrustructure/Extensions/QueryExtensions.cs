@@ -15,4 +15,12 @@ public static class QueryExtensions
 
         return query;
     }
+
+    public static async Task ForEachAsync<T>(this IList<T> list, Func<T, Task> function)
+    {
+        foreach (var value in list)
+        {
+            await function(value);
+        }
+    }
 }

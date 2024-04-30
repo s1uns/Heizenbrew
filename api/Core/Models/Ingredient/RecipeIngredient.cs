@@ -8,8 +8,10 @@ namespace Core.Models.Ingredient
 {
     public class RecipeIngredient : BaseEntity
     {
+        public Guid IngredientId { get; set; }
         public Ingredient Ingredient { get; set; }
+        public Guid RecipeId { get; set; }
+        public Recipe Recipe { get; set; }
         public double Weight { get; set; }
-        public ICollection<Recipe> Recipes { get; set; }
     }
 }
