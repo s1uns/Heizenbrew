@@ -90,7 +90,7 @@ namespace heisenbrew_api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetEquipmentById(Guid id)
         {
-            var result = await _equipmentService.GetBrewingEquipmentAsync(id);
+            var result = await _equipmentService.GetBrewingEquipmentByIdAsync(id);
             return this.CreateResponse(result);
         }
 

@@ -12,6 +12,7 @@ namespace Infrustructure.Dto.Equipment
         double Pressure,
         double Humidity,
         double Fullness,
-        string LastUpdate
+        string LastUpdate,
+        bool IsBrewing
     );
 }

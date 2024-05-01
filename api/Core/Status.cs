@@ -12,6 +12,7 @@ namespace Core
         Filling,
         Processing,
         Finished,
-        Failed
+        Failed,
+        Aborted
     }
 }

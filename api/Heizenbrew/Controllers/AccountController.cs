@@ -27,7 +27,7 @@ namespace heisenbrew_api.Controllers
         /// </remarks>
         /// <returns>An IActionResult representing the result of the operation.</returns>
         [HttpPost("sign-up")]
-        public async Task<IActionResult> SignUpBrewer([FromBody] CredentialsDto request)
+        public async Task<IActionResult> SignUp([FromBody] CredentialsDto request)
         {
             var result = await _accountService.CreateBrewerAsync(request);
             return this.CreateResponse(result);

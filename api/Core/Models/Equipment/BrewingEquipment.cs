@@ -12,6 +12,7 @@ namespace Core.Models.Equipment
         public string Description { get; set; }
         public string ImgUrl { get; set; }
         public decimal Price { get; set; }
+        public bool IsBrewing { get; set; }
 
     }
 }

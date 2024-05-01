@@ -97,11 +97,11 @@ namespace BLL.EquipmentManagement
             }
         }
 
-        public async Task<Result<List<BrewingEquipmentFullInfoDto>, Error>> GetAllEquipmentAsync()
+        public async Task<Result<List<BrewingEquipmentShortInfoDto>, Error>> GetAllEquipmentAsync()
         {
             try
             {
-                return _mapper.Map<List<BrewingEquipmentFullInfoDto>>(await _context.BrewingEquipment.ToListAsync());
+                return _mapper.Map<List<BrewingEquipmentShortInfoDto>>(await _context.BrewingEquipment.ToListAsync());
             }
             catch (Exception ex)
             {
@@ -166,7 +166,7 @@ namespace BLL.EquipmentManagement
             }
         }
 
-        public async Task<Result<BrewingEquipmentFullInfoDto, Error>> GetBrewingEquipmentAsync(Guid brewingEquipmentId)
+        public async Task<Result<BrewingEquipmentFullInfoDto, Error>> GetBrewingEquipmentByIdAsync(Guid brewingEquipmentId)
         {
             try
             {
@@ -182,7 +182,7 @@ namespace BLL.EquipmentManagement
             }
             catch (Exception ex)
             {
-                _logger.LogError($"BLL.GetBrewingEquipmentAsync ERROR: {ex.Message}");
+                _logger.LogError($"BLL.GetBrewingEquipmentByIdAsync ERROR: {ex.Message}");
                 return BrewingEquipmentServiceErrors.GetEquipmentByIdError;
             }
         }
@@ -192,7 +192,7 @@ namespace BLL.EquipmentManagement
             try
             {
                 //Here will be some logic for connecting to the IoT device
-                var response = new EquipmentStatusDto(25.5, 1013.25, 50.2, 75.0, "2024-05-01T12:00:00");
+                var response = new EquipmentStatusDto(25.5, 1013.25, 50.2, 75.0, "2024-05-01T12:00:00", false);
                 return response;
             }
             catch (Exception ex)
