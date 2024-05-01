@@ -168,7 +168,7 @@ namespace heisenbrew_api.Controllers
         /// </remarks>
         /// <returns>An IActionResult representing the result of the operation.</returns>
         [Authorize]
-        [HttpGet("status/{id}")]
+        [HttpGet("status/{equipmentId}")]
         public async Task<IActionResult> GetEquipmentStatus(Guid equipmentId)
         {
             var result = await _equipmentService.GetEquipmentStatusAsync(equipmentId);

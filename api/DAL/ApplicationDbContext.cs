@@ -21,9 +21,9 @@ namespace DAL
         public required DbSet<Brewer> Brewers { get; set; }
         public required DbSet<BrewerBrewingEquipment> BrewerBrewingEquipment { get; set; }
         public required DbSet<BrewingEquipment> BrewingEquipment { get; set; }
+        public required DbSet<BrewerIngredient> BrewerIngredients { get; set; }
         public required DbSet<Brewing> Brewings { get; set; }
         public required DbSet<BrewingLog> BrewingLogs { get; set; }
-        public required DbSet<BrewerIngredient> BrewerIngredients { get; set; }
         public required DbSet<Ingredient> Ingredients { get; set; }
         public required DbSet<RecipeIngredient> RecipeIngredients { get; set; }
         public required DbSet<Recipe> Recipes { get; set; }
@@ -73,6 +73,7 @@ namespace DAL
                Id = new Guid(ADMIN_ID),
                FirstName = "Admin",
                LastName = "Admin",
+               Email = _configuration.GetRequiredSection("ADMIN")["EMAIL"],
                CreatedAt = DateTime.UtcNow,
                ProfileColor = "#000000"
             });

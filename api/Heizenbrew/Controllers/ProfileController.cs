@@ -42,7 +42,7 @@ namespace heisenbrew_api.Controllers
         /// </remarks>
         /// <returns>An IActionResult representing the result of the operation.</returns>
         [HttpGet("me")]
-        [Authorize(Roles = nameof(Roles.Brewer))]
+        [Authorize]
         public async Task<IActionResult> GetOwnBrewerProfile()
         {
             var result = await _profileService.GetOwnBrewerProfileAsync();
@@ -59,7 +59,7 @@ namespace heisenbrew_api.Controllers
         /// </remarks>
         /// <returns>An IActionResult representing the result of the operation.</returns>
         [HttpPut("edit")]
-        [Authorize(Roles = nameof(Roles.Brewer))]
+        [Authorize]
         public async Task<IActionResult> EditBrewerProfile([FromBody] UpdateBrewerProfileDto brewerProfileDto)
         {
             var result = await _profileService.UpdateBrewerProfileAsync(brewerProfileDto);
