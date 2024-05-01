@@ -19,6 +19,7 @@ namespace Core.Models
         public ICollection<Recipe> Recipes { get; set; }
         public ICollection<BrewerBrewingEquipment> Equipment { get; set; }
         public ICollection<BrewerIngredient> Ingredients { get; set;}
+        public ICollection<RecipeVote> Votes { get; set; }
 
     }
 }

@@ -15,9 +15,9 @@ namespace heisenbrew_api.BuildExtensions
                     "v1",
                     new OpenApiInfo
                     {
-                        Title = "MegaMart Api",
+                        Title = "Heisenbrew Api",
                         Version = "v1",
-                        Description = "MegaMart Web API\n\n" +
+                        Description = "Heisenbrew Web API\n\n" +
                         "Creator - Illia Teliuk",
                         Contact = new OpenApiContact
                         {

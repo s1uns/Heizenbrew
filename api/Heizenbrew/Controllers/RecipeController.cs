@@ -119,5 +119,23 @@ namespace heisenbrew_api.Controllers
 
             return this.CreateResponse(result);
         }
+
+        /// <summary>
+        /// Votes an existing recipe.
+        /// </summary>
+        /// <param name="recipeId">The id of the recipe which should be voted.</param>
+        /// <param name="voteStatus">The info about given vote.</param>
+        /// <remarks>
+        /// If the operation is successful, it will return a corresponding message.
+        /// </remarks>
+        /// <returns>An IActionResult representing the result of the operation.</returns>
+        [HttpGet("vote")]
+        [Authorize]
+        public async Task<IActionResult> VoteRecipe([FromQuery] Guid recipeId, string voteStatus)
+        {
+            var result = await _recipeService.VoteRecipeAsync(recipeId, voteStatus);
+
+            return this.CreateResponse(result);
+        }
     }
 }

@@ -235,7 +235,7 @@ namespace BLL.RecipeManagement
                     return RecipeServiceErrors.CannotVoteYourRecipeError;
                 }
 
-                var vote = await _context.RecipeVotes.FirstOrDefaultAsync(v => v.BrewerId == userId && v.RecipeId == recipeId);
+                var vote = await _context.Votes.FirstOrDefaultAsync(v => v.BrewerId == userId && v.RecipeId == recipeId);
 
                 if (vote is null)
                 {
@@ -250,7 +250,7 @@ namespace BLL.RecipeManagement
                                 RecipeId = recipeId,
                                 IsPositive = voteStatus == "UPVOTED"
                             };
-                            await _context.RecipeVotes.AddAsync(vote);
+                            await _context.Votes.AddAsync(vote);
                             recipe.Votes.Add(vote);
                             break;
                         case "UNVOTED":
@@ -271,7 +271,7 @@ namespace BLL.RecipeManagement
                             break;
 
                         case "UNVOTED":
-                            _context.RecipeVotes.Remove(vote);
+                            _context.Votes.Remove(vote);
                             break;
 
                         default:
@@ -289,16 +289,29 @@ namespace BLL.RecipeManagement
             }
         }
 
-        private async Task<RecipesListDto> GetFilteredRecipesAsync(IQueryable<Recipe> query, int pageNumber)
+        private async Task<Result<RecipesListDto, Error>> GetFilteredRecipesAsync(IQueryable<Recipe> query, int pageNumber)
         {
             try
             {
+                var isUserValid = _contextAccessor.TryGetUserId(out Guid userId);
+
+
                 var recipes = await query.Include(r => r.Ingredients).ThenInclude(rI => rI.Ingredient).Skip(pageNumber * 5).Take(5).ToListAsync();
                 var dtos = new List<RecipeDto>();
                 var totalPages = (query.Count() + 10 - 1) / 10;
+                var votesCountQuery = _context.Votes.AsQueryable();
+                var userVoteQuery = _context.Votes.Where(r => r.BrewerId == userId);
                 await recipes.ForEachAsync(async recipe =>
                 {
-                    dtos.Add(new RecipeDto(recipe.Id, recipe.Title, recipe.Description, _mapper.Map<IList<RecipeIngredientDto>>(recipe.Ingredients), await GetRecipeCookingPrice(recipe.Id)));
+                    var upvotesCount = await votesCountQuery.Where(v => v.RecipeId == recipe.Id && v.IsPositive).CountAsync();
+                    var downvotesCount = await votesCountQuery.Where(v => v.RecipeId == recipe.Id && !v.IsPositive).CountAsync();
+                    var userVoteStatus = isUserValid ? await userVoteQuery.AnyAsync(v => v.RecipeId == recipe.Id && v.IsPositive)
+                        ? nameof(VoteStatus.UPVOTED)
+                        : await userVoteQuery.AnyAsync(v => v.RecipeId == recipe.Id && !v.IsPositive)
+                            ? nameof(VoteStatus.DOWNVOTED)
+                            : nameof(VoteStatus.UNVOTED) : nameof(VoteStatus.UNVOTED);
+
+                    dtos.Add(new RecipeDto(recipe.Id, recipe.Title, recipe.Description, _mapper.Map<IList<RecipeIngredientDto>>(recipe.Ingredients), upvotesCount, downvotesCount, userVoteStatus, await GetRecipeCookingPrice(recipe.Id)));
                 });
                 var result = new RecipesListDto(dtos, totalPages);
 

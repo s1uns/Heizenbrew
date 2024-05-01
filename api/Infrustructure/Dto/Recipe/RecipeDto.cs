@@ -13,6 +13,9 @@ namespace Infrustructure.Dto.Recipe
         string Title,
         string Description,
         IList<RecipeIngredientDto> Ingredients,
+        int UpVotesCount,
+        int DownVotesCount,
+        string UsersVote,
         decimal CookingPrice = 0M
     );
 }

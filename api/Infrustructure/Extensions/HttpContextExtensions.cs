@@ -10,24 +10,30 @@ namespace Infrustructure.Extensions
         public static bool TryGetUserId(this IHttpContextAccessor accessor, out Guid userId)
         {
             return accessor.HttpContext.TryGetUserId(out userId);
-        }       
-        
+        }
+
         public static bool TryGetUserId(this HttpContext? context, out Guid userId)
         {
-            var identityName = context?.User?.Claims?.Single(c => c.Type == ClaimTypes.NameIdentifier).Value;
 
-            if (!string.IsNullOrEmpty(identityName))
+            var isAuthenticated = context.User.Identity.IsAuthenticated;
+
+            if (isAuthenticated)
             {
-                var isValid = Guid.TryParse(identityName, out Guid parsedUserId);
+                var identityName = context?.User?.Claims?.Single(c => c.Type == ClaimTypes.NameIdentifier).Value;
 
-                if (isValid && parsedUserId == Guid.Empty)
+                if (!string.IsNullOrEmpty(identityName))
                 {
-                    isValid = !isValid;
+                    var isValid = Guid.TryParse(identityName, out Guid parsedUserId);
+
+                    if (isValid && parsedUserId == Guid.Empty)
+                    {
+                        isValid = !isValid;
+                    }
+
+                    userId = parsedUserId;
+
+                    return isValid;
                 }
-
-                userId = parsedUserId;
-
-                return isValid;
             }
 
             userId = Guid.Empty;

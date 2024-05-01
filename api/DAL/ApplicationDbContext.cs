@@ -27,7 +27,7 @@ namespace DAL
         public required DbSet<Ingredient> Ingredients { get; set; }
         public required DbSet<RecipeIngredient> RecipeIngredients { get; set; }
         public required DbSet<Recipe> Recipes { get; set; }
-        public required DbSet<RecipeVote> RecipeVotes { get; set; }
+        public required DbSet<RecipeVote> Votes { get; set; }
 
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IConfiguration configuration)
@@ -66,6 +66,15 @@ namespace DAL
             {
                 RoleId = ROLE_ID,
                 UserId = ADMIN_ID
+            });
+
+            builder.Entity<Brewer>().HasData(new Brewer
+            {
+               Id = new Guid(ADMIN_ID),
+               FirstName = "Admin",
+               LastName = "Admin",
+               CreatedAt = DateTime.UtcNow,
+               ProfileColor = "#000000"
             });
         }
     }

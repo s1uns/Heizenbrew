@@ -3,6 +3,7 @@ using System;
 using DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240501051143_VotesTableRenamed")]
+    partial class VotesTableRenamed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,17 +53,6 @@ namespace DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Brewers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("a18be9c0-aa65-4af8-bd17-00bd9344e575"),
-                            CreatedAt = new DateTime(2024, 5, 1, 5, 23, 3, 979, DateTimeKind.Utc).AddTicks(7764),
-                            Email = "",
-                            FirstName = "Admin",
-                            LastName = "Admin",
-                            ProfileColor = "#000000"
-                        });
                 });
 
             modelBuilder.Entity("Core.Models.Brewing", b =>
@@ -404,13 +396,13 @@ namespace DAL.Migrations
                         {
                             Id = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "54f91b27-4642-4306-a1fd-db14e1054352",
+                            ConcurrencyStamp = "28dbc160-1c42-4372-8e54-bc7f31031cac",
                             Email = "illiateliuk@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ILLIATELIUK@GMAIL.COM",
                             NormalizedUserName = "illiateliuk@gmail.com",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOb0RJ1HiUxBB11PxG7wiyCR2ae1ETw0ONumUEtzwOjpqefh6RHaU+43KsJa7UaRiQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPldZWUn/XNoKbj9jRT3+2Ld8A/0eRgOPaluDJjbmQVQazkSnil5Iz3I1I9Ln3OxTg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
