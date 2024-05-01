@@ -69,7 +69,7 @@ namespace BLL.EquipmentManagement
             }
             catch (Exception ex)
             {
-                _logger.LogError($"BLL.AddEquipmentAsync ERROR: {ex.Message}");
+                _logger.LogError($"BLL.BuyBrewingEquipmentAsync ERROR: {ex.Message}");
                 return BrewingEquipmentServiceErrors.CreateEquipmentError;
             }
         }
@@ -129,7 +129,7 @@ namespace BLL.EquipmentManagement
             }
             catch (Exception ex)
             {
-                _logger.LogError($"BLL.GetAllEquipmentAsync ERROR: {ex.Message}");
+                _logger.LogError($"BLL.GetBrewerEquipmentAsync ERROR: {ex.Message}");
                 return BrewingEquipmentServiceErrors.GetEquipmentListError;
             }
         }
@@ -184,6 +184,21 @@ namespace BLL.EquipmentManagement
             {
                 _logger.LogError($"BLL.GetBrewingEquipmentAsync ERROR: {ex.Message}");
                 return BrewingEquipmentServiceErrors.GetEquipmentByIdError;
+            }
+        }
+
+        public async Task<Result<EquipmentStatusDto, Error>> GetEquipmentStatusAsync(Guid equipmentId)
+        {
+            try
+            {
+                //Here will be some logic for connecting to the IoT device
+                var response = new EquipmentStatusDto(25.5, 1013.25, 50.2, 75.0, "2024-05-01T12:00:00");
+                return response;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"BLL.GetEquipmentStatusAsync ERROR: {ex.Message}");
+                return BrewingEquipmentServiceErrors.GetEquipmentStatusError;
             }
         }
 

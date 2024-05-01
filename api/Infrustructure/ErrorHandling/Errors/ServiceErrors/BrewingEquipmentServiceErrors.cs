@@ -17,5 +17,6 @@ namespace Infrustructure.ErrorHandling.Errors.ServiceErrors
         public static Error BuyEquipmentError = new Error("Buy Equipment Error", "Couldn't add this equipment to your profile.");
         public static Error NotYourEquipmentError = new Error("Not Your Equipment Error", "You are trying to access someone else's equipment information.");
         public static Error ChangeConnectionStringError = new Error("Change Connection String Error", "Couldn't change the connection string.");
+        public static Error GetEquipmentStatusError = new Error("Get Equipment Status Error", "Couldn't get the equipment status.");
     }
 }
