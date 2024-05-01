@@ -12,6 +12,6 @@ namespace Infrustructure.Dto.Recipe
         Guid Id,
         string Title,
         string Description,
-        IList<RecipeIngredientDto> Ingredients
+        IList<CreateRecipeIngredientDto> Ingredients
     );
 }

@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrustructure.Dto.Ingredient
+namespace Infrustructure.Dto.Recipe
 {
-    public record RecipeIngredientDto
+    public record RecipesListDto
     (
-
-      string Name,
-      double Weight
+        IList<RecipeDto> Recipes,
+        int TotalPages
     );
 }

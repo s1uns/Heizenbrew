@@ -11,6 +11,6 @@ namespace Infrustructure.Dto.Recipe
     (
         string Title,
         string Description,
-        IList<RecipeIngredientDto> Ingredients
+        IList<CreateRecipeIngredientDto> Ingredients
     );
 }

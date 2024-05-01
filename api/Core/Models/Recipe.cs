@@ -9,6 +9,6 @@ namespace Core.Models
         public string Title { get; set; }
         public string Description { get; set; }
         public ICollection<RecipeIngredient> Ingredients { get; set; }
-
+        public ICollection<RecipeVote> Votes { get; set; }
     }
 }

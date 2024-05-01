@@ -16,5 +16,9 @@ namespace Infrustructure.ErrorHandling.Errors.ServiceErrors
         public static Error DeleteRecipeError = new Error("Delete Recipe Error", "Couldn't delete this brewing recipe.");
         public static Error BuyRecipeError = new Error("Buy Recipe Error", "Couldn't add this recipe to your profile.");
         public static Error NotYourRecipeError = new Error("Not Your Recipe Error", "You are trying to access someone else's recipe information.");
+        public static Error CannotVoteYourRecipeError = new Error("Cannot Vote Your Recipe Error", "You cannot vote your recipes.");
+        public static Error RestractVoteError = new Error("Restract Vote Error", "Couldn't restract the vote from this recipe.");
+        public static Error WrongVoteInformation = new Error("Wrong Vote Information", "Couldn't vote the recipe with this info.");
+        public static Error VoteRecipeError = new Error("Vote Recipe Error", "Couldn't vote this recipe.");
     }
 }

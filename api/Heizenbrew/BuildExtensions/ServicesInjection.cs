@@ -7,6 +7,7 @@ using BLL.IdentityManagement;
 using BLL.ProfileManagement.Interface;
 using BLL.EquipmentManagement;
 using BLL.IngredientManagement;
+using BLL.RecipeManagement;
 
 namespace heisenbrew_api.BuildExtensions
 {
@@ -19,6 +20,7 @@ namespace heisenbrew_api.BuildExtensions
             services.AddScoped<IProfileService, ProfileService>();
             services.AddScoped<IEquipmentService, EquipmentService>();
             services.AddScoped<IIngredientService, IngredientService>();
+            services.AddScoped<IRecipeService, RecipeService>();
 
         }
     }

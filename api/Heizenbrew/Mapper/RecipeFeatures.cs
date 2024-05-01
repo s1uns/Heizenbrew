@@ -8,7 +8,9 @@ namespace heisenbrew_api.Mapper
     {
         public RecipeFeatures()
         {
-            CreateMap<Recipe, RecipeDto>();
+            CreateMap<Recipe, RecipeDto>()
+                .ForMember(rD => rD.Ingredients, opt => opt.MapFrom(r => r.Ingredients));
+
             CreateMap<CreateRecipeDto, Recipe>();
             CreateMap<UpdateRecipeDto, Recipe>();
         }

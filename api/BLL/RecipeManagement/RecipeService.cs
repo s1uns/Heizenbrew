@@ -2,6 +2,7 @@
 using Core;
 using Core.Models;
 using DAL;
+using Infrustructure.Dto.Ingredient;
 using Infrustructure.Dto.Recipe;
 using Infrustructure.Dto.UserProfile;
 using Infrustructure.ErrorHandling.Errors.Base;
@@ -11,7 +12,7 @@ using Infrustructure.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace BLL.RecipeManagement
 {
@@ -53,26 +54,13 @@ namespace BLL.RecipeManagement
                 }
 
                 var recipe = _mapper.Map<Recipe>(createRecipeDto);
-
-                await createRecipeDto.Ingredients.ForEachAsync(async iI =>
-                {
-                    var ingredient = await _context.Ingredients.FirstOrDefaultAsync(i => i.Id == iI.IngredientId);
-
-                    if (ingredient is null)
-                    {
-                        throw new WrongIngredientException("Wrong ingredient info!");
-                    }
-
-                    await _context.RecipeIngredients.AddAsync(new Core.Models.Ingredient.RecipeIngredient
-                    {
-                        IngredientId = ingredient.Id,
-                        RecipeId = userId,
-                        Recipe = recipe,
-                        Weight = iI.Weight
-                    });
-                });
+                recipe.BrewerId = userId;
 
 
+                await _context.Recipes.AddAsync(recipe);
+                brewer.Recipes.Add(recipe);
+
+                await _context.SaveChangesAsync();
 
                 return $"Successfully created the \"{recipe.Title}\" recipe!";
             }
@@ -96,6 +84,8 @@ namespace BLL.RecipeManagement
                 }
 
                 _context.Recipes.Remove(recipe);
+                await _context.SaveChangesAsync();
+
                 return "Successfully deleted the recipe!";
             }
             catch (Exception ex)
@@ -103,6 +93,62 @@ namespace BLL.RecipeManagement
                 _logger.LogError($"BLL.DeleteRecipeAsync ERROR: {ex.Message}");
 
                 return RecipeServiceErrors.DeleteRecipeError;
+            }
+        }
+
+        public async Task<Result<RecipesListDto, Error>> GetOwnRecipesAsync(int pageNumber)
+        {
+            try
+            {
+                var isUserValid = _contextAccessor.TryGetUserId(out Guid userId);
+
+                if (!isUserValid)
+                {
+                    return UserErrors.InvalidUserId;
+                }
+
+                var result = await GetFilteredRecipesAsync(_context.Recipes.Where(r => r.BrewerId == userId), pageNumber);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"BLL.GetOwnRecipesAsync ERROR: {ex.Message}");
+                return RecipeServiceErrors.GetRecipeListError;
+            }
+        }
+
+        public async Task<Result<RecipeDto, Error>> GetRecipeByIdAsync(Guid recipeId)
+        {
+            try
+            {
+
+                var recipe = await _context.Recipes.Include(r => r.Ingredients).ThenInclude(rI => rI.Ingredient).FirstOrDefaultAsync(r => r.Id == recipeId);
+
+                if(recipe is null)
+                {
+                    return RecipeServiceErrors.GetRecipeByIdError;
+                }
+
+                return _mapper.Map<RecipeDto>(recipe);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"BLL.GetRecipeByIdAsync ERROR: {ex.Message}");
+                return RecipeServiceErrors.GetRecipeByIdError;
+            }
+        }
+
+        public async Task<Result<RecipesListDto, Error>> GetAllRecipesAsync(int pageNumber)
+        {
+            try
+            {
+                var result = await GetFilteredRecipesAsync(_context.Recipes, pageNumber);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"BLL.GetRecipesAsync ERROR: {ex.Message}");
+                return RecipeServiceErrors.GetRecipeListError;
             }
         }
 
@@ -134,7 +180,7 @@ namespace BLL.RecipeManagement
                 }
 
 
-                var recipe = await _context.Recipes.FirstOrDefaultAsync(r => r.Id == updateRecipeDto.Id);
+                var recipe = await _context.Recipes.Include(r => r.Ingredients).FirstOrDefaultAsync(r => r.Id == updateRecipeDto.Id);
 
                 if (recipe is null)
                 {
@@ -146,32 +192,18 @@ namespace BLL.RecipeManagement
                     return RecipeServiceErrors.NotYourRecipeError;
                 }
 
-                recipe = _mapper.Map<Recipe>(updateRecipeDto);
+                _mapper.Map(updateRecipeDto, recipe);
 
-                recipe.Ingredients.Clear();
 
-                await updateRecipeDto.Ingredients.ForEachAsync(async iI =>
-                {
-                    var ingredient = await _context.Ingredients.FirstOrDefaultAsync(i => i.Id == iI.IngredientId);
 
-                    if (ingredient is null)
-                    {
-                        throw new WrongIngredientException("Wrong ingredient info!");
-                    }
-
-                    await _context.RecipeIngredients.AddAsync(new Core.Models.Ingredient.RecipeIngredient
-                    {
-                        IngredientId = ingredient.Id,
-                        RecipeId = userId,
-                        Recipe = recipe,
-                        Weight = iI.Weight
-                    });
-                });
+                await _context.SaveChangesAsync();
 
                 return $"Successfully updated the \"{recipe.Title}\" recipe!";
 
 
             }
+
+
             catch (Exception ex)
             {
                 _logger.LogError($"BLL.UpdateRecipeAsync ERROR: {ex.Message}");
@@ -180,9 +212,124 @@ namespace BLL.RecipeManagement
             }
         }
 
-        public Task<Result<string, Error>> VoteRecipeAsync(Guid recipeId, string voteStatus)
+        public async Task<Result<string, Error>> VoteRecipeAsync(Guid recipeId, string voteStatus)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var isUserValid = _contextAccessor.TryGetUserId(out Guid userId);
+
+                if (!isUserValid)
+                {
+                    return UserErrors.InvalidUserId;
+                }
+
+                var recipe = await _context.Recipes.Include(p => p.Votes).FirstOrDefaultAsync(p => p.Id == recipeId);
+
+                if (recipe is null)
+                {
+                    return RecipeServiceErrors.GetRecipeByIdError;
+                }
+
+                if (recipe.BrewerId == userId)
+                {
+                    return RecipeServiceErrors.CannotVoteYourRecipeError;
+                }
+
+                var vote = await _context.RecipeVotes.FirstOrDefaultAsync(v => v.BrewerId == userId && v.RecipeId == recipeId);
+
+                if (vote is null)
+                {
+
+                    switch (voteStatus)
+                    {
+                        case "UPVOTED":
+                        case "DOWNVOTED":
+                            vote = new RecipeVote
+                            {
+                                BrewerId = userId,
+                                RecipeId = recipeId,
+                                IsPositive = voteStatus == "UPVOTED"
+                            };
+                            await _context.RecipeVotes.AddAsync(vote);
+                            recipe.Votes.Add(vote);
+                            break;
+                        case "UNVOTED":
+                            return RecipeServiceErrors.RestractVoteError;
+
+                        default:
+                            return RecipeServiceErrors.WrongVoteInformation;
+                    }
+                }
+                else
+                {
+
+                    switch (voteStatus)
+                    {
+                        case "UPVOTED":
+                        case "DOWNVOTED":
+                            vote.IsPositive = voteStatus == "UPVOTED";
+                            break;
+
+                        case "UNVOTED":
+                            _context.RecipeVotes.Remove(vote);
+                            break;
+
+                        default:
+                            return RecipeServiceErrors.WrongVoteInformation;
+                    }
+                }
+
+                await _context.SaveChangesAsync();
+                return "Voted this recipe successfully!";
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"BLL.VoteRecipeAsync ERROR: {ex.Message}");
+                return RecipeServiceErrors.VoteRecipeError;
+            }
         }
+
+        private async Task<RecipesListDto> GetFilteredRecipesAsync(IQueryable<Recipe> query, int pageNumber)
+        {
+            try
+            {
+                var recipes = await query.Include(r => r.Ingredients).ThenInclude(rI => rI.Ingredient).Skip(pageNumber * 5).Take(5).ToListAsync();
+                var dtos = new List<RecipeDto>();
+                var totalPages = (query.Count() + 10 - 1) / 10;
+                await recipes.ForEachAsync(async recipe =>
+                {
+                    dtos.Add(new RecipeDto(recipe.Id, recipe.Title, recipe.Description, _mapper.Map<IList<RecipeIngredientDto>>(recipe.Ingredients), await GetRecipeCookingPrice(recipe.Id)));
+                });
+                var result = new RecipesListDto(dtos, totalPages);
+
+                return result;
+
+            }
+            catch (Exception e)
+            {
+                throw new GetFilteredRecipesException(e.Message);
+            }
+        }
+
+        private async Task<decimal> GetRecipeCookingPrice(Guid recipeId)
+        {
+            try
+            {
+                var recipe = await _context.Recipes.Include(r => r.Ingredients).ThenInclude(rI => rI.Ingredient).FirstOrDefaultAsync(r => r.Id == recipeId);
+
+                var cookingPrice = 0M;
+                await recipe.Ingredients.ToList().ForEachAsync(async ingredient =>
+                {
+                    cookingPrice += (decimal)ingredient.Weight * ingredient.Ingredient.Price;
+                });
+                return cookingPrice;
+
+            }
+            catch (Exception e)
+            {
+                throw new GetFilteredRecipesException(e.Message);
+            }
+        }
+
     }
 }

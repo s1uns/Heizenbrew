@@ -12,6 +12,7 @@ namespace Infrustructure.Dto.Recipe
         Guid Id,
         string Title,
         string Description,
-        IList<RecipeIngredientDto> Ingredients
+        IList<RecipeIngredientDto> Ingredients,
+        decimal CookingPrice = 0M
     );
 }
