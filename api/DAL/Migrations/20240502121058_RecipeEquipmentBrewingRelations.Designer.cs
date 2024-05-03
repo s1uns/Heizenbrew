@@ -3,6 +3,7 @@ using System;
 using DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240502121058_RecipeEquipmentBrewingRelations")]
+    partial class RecipeEquipmentBrewingRelations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,7 +32,7 @@ namespace DAL.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -55,7 +58,7 @@ namespace DAL.Migrations
                         new
                         {
                             Id = new Guid("a18be9c0-aa65-4af8-bd17-00bd9344e575"),
-                            CreatedAt = new DateTime(2024, 5, 2, 13, 22, 39, 364, DateTimeKind.Utc).AddTicks(7422),
+                            CreatedAt = new DateTime(2024, 5, 2, 12, 10, 57, 19, DateTimeKind.Utc).AddTicks(4618),
                             Email = "illiateliuk@gmail.com",
                             FirstName = "Admin",
                             LastName = "Admin",
@@ -100,7 +103,7 @@ namespace DAL.Migrations
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("LogTime")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Message")
                         .IsRequired()
@@ -129,9 +132,6 @@ namespace DAL.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<bool>("IsBrewing")
-                        .HasColumnType("boolean");
-
                     b.HasKey("Id");
 
                     b.HasIndex("BrewerId");
@@ -154,6 +154,9 @@ namespace DAL.Migrations
                     b.Property<string>("ImgUrl")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<bool>("IsBrewing")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -412,13 +415,13 @@ namespace DAL.Migrations
                         {
                             Id = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b1d58b88-3f41-4e87-b84b-0e934c0dabf0",
+                            ConcurrencyStamp = "5b6fe62a-36c6-4372-9db6-ae8609fe2d91",
                             Email = "illiateliuk@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ILLIATELIUK@GMAIL.COM",
                             NormalizedUserName = "illiateliuk@gmail.com",
-                            PasswordHash = "AQAAAAIAAYagAAAAEIwlHZm/nUJg0xEcJveAcIvwVWLF0H2zsDx0uCBZ9NZEPxu7V2tp3retY6S8DA2Gew==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFu5umnQhxrsZ1CUG8vtr++BL2SLalNiG8pIQFRvpAonuFJn66GSnk46V8rE3ntUMA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
