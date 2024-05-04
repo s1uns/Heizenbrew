@@ -12,5 +12,8 @@ namespace Core.Models.Equipment
         public Brewer Brewer { get; set; }
         public BrewingEquipment BrewingEquipment { get; set; }
         public string ConnectionString { get; set; } = string.Empty;
+        public ICollection<Brewing> Brewings { get; set; }
+        public bool IsBrewing { get; set; }
+
     }
 }

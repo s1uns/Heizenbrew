@@ -20,7 +20,7 @@ namespace DAL
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(configurationString));
-
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
             services.AddDefaultIdentity<IdentityUser>(options =>
             {
                 options.Password.RequiredLength = 8;

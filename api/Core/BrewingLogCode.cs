@@ -8,7 +8,7 @@ namespace Core
 {
     public enum BrewingLogCode
     {
-        Normal,
+        Info,
         Warning,
         CriticalError
     }

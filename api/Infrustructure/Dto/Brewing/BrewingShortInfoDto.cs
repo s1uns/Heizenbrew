@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Infrustructure.Dto.Brewing
 {
-    public record BrewingDto
+    public record BrewingShortInfoDto
     (
         string EquipmentTitle,
         string RecipeTitle,

@@ -16,12 +16,12 @@ namespace heisenbrew_api.Mapper
             CreateMap<BrewerBrewingEquipment, BrewerBrewingEquipmentShortInfoDto>()
                 .ForCtorParam(nameof(BrewerBrewingEquipmentShortInfoDto.Name), otp => otp.MapFrom(src => src.BrewingEquipment.Name))
                 .ForCtorParam(nameof(BrewerBrewingEquipmentShortInfoDto.ImgUrl), otp => otp.MapFrom(src => src.BrewingEquipment.ImgUrl))
-                .ForCtorParam(nameof(BrewerBrewingEquipmentShortInfoDto.IsBrewing), otp => otp.MapFrom(src => src.BrewingEquipment.IsBrewing));
+                .ForCtorParam(nameof(BrewerBrewingEquipmentShortInfoDto.IsBrewing), otp => otp.MapFrom(src => src.IsBrewing));
 
             CreateMap<BrewerBrewingEquipment, BrewerBrewingEquipmentFullInfoDto>()
                 .ForCtorParam(nameof(BrewerBrewingEquipmentShortInfoDto.Name), otp => otp.MapFrom(src => src.BrewingEquipment.Name))
                 .ForCtorParam(nameof(BrewerBrewingEquipmentShortInfoDto.ImgUrl), otp => otp.MapFrom(src => src.BrewingEquipment.ImgUrl))
-                .ForCtorParam(nameof(BrewerBrewingEquipmentShortInfoDto.IsBrewing), otp => otp.MapFrom(src => src.BrewingEquipment.IsBrewing));
+                .ForCtorParam(nameof(BrewerBrewingEquipmentShortInfoDto.IsBrewing), otp => otp.MapFrom(src => src.IsBrewing));
         }
     }
 }

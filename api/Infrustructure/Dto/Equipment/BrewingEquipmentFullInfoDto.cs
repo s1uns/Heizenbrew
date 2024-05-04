@@ -12,7 +12,6 @@ namespace Infrustructure.Dto.Equipment
         string Name,
         string Description,
         string ImgUrl,
-        decimal Price,
-        bool IsBrewing
+        decimal Price
     );
 }

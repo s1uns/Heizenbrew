@@ -11,7 +11,6 @@ namespace Infrustructure.Dto.Equipment
         Guid Id,
         string Name,
         string ImgUrl,
-        decimal Price,
-        bool IsBrewing
+        decimal Price
     );
 }

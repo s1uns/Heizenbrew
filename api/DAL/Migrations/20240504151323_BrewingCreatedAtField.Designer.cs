@@ -3,6 +3,7 @@ using System;
 using DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240504151323_BrewingCreatedAtField")]
+    partial class BrewingCreatedAtField
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,7 +58,7 @@ namespace DAL.Migrations
                         new
                         {
                             Id = new Guid("a18be9c0-aa65-4af8-bd17-00bd9344e575"),
-                            CreatedAt = new DateTime(2024, 5, 4, 15, 30, 51, 811, DateTimeKind.Utc).AddTicks(4702),
+                            CreatedAt = new DateTime(2024, 5, 4, 15, 13, 22, 654, DateTimeKind.Utc).AddTicks(4592),
                             Email = "illiateliuk@gmail.com",
                             FirstName = "Admin",
                             LastName = "Admin",
@@ -99,15 +102,15 @@ namespace DAL.Migrations
                     b.Property<Guid>("BrewingId")
                         .HasColumnType("uuid");
 
+                    b.Property<int>("BrewingLogCode")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("LogTime")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Message")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<int>("StatusCode")
-                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -415,13 +418,13 @@ namespace DAL.Migrations
                         {
                             Id = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8f0fd67f-ee05-4a11-8b5c-4635961fae49",
+                            ConcurrencyStamp = "091fd7ee-c9f4-4967-9b26-5f8ddbc16616",
                             Email = "illiateliuk@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ILLIATELIUK@GMAIL.COM",
                             NormalizedUserName = "illiateliuk@gmail.com",
-                            PasswordHash = "AQAAAAIAAYagAAAAEO8Wrv6Vl6gHyF9pC1NwR4v2YrIqmq1c9SIXQj9LrwRLxYsWoASZI0Cee0M0v7iYkQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEE+n38wXElFCf5CsZkfYGDkRwOqtlEYzsdWlxHhqnr0ba/A+6vt+Ren8Qx4Xv+vndA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,

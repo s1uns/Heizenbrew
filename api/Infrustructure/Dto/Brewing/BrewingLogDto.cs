@@ -8,6 +8,7 @@ namespace Infrustructure.Dto.Brewing
 {
     public record BrewingLogDto
     (
+        string StatusCode,
         string Message,
         string LogTime
     );

@@ -101,7 +101,8 @@ namespace BLL.EquipmentManagement
         {
             try
             {
-                return _mapper.Map<List<BrewingEquipmentShortInfoDto>>(await _context.BrewingEquipment.ToListAsync());
+                var equipment = await _context.BrewingEquipment.ToListAsync();
+                return _mapper.Map<List<BrewingEquipmentShortInfoDto>>(equipment);
             }
             catch (Exception ex)
             {
@@ -123,8 +124,8 @@ namespace BLL.EquipmentManagement
 
                 var filteredEquipment = await _context.BrewerBrewingEquipment.Where(bBE => bBE.BrewerId == userId).Include(bBE => bBE.BrewingEquipment).ToListAsync();
 
-                var res = _mapper.Map<List<BrewerBrewingEquipmentShortInfoDto>>(filteredEquipment);
-
+/*                var res = _mapper.Map<List<BrewerBrewingEquipmentShortInfoDto>>(filteredEquipment);
+*/
                 return _mapper.Map<List<BrewerBrewingEquipmentShortInfoDto>>(filteredEquipment);
             }
             catch (Exception ex)
