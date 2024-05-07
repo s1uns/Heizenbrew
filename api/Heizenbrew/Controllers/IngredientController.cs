@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace heisenbrew_api.Controllers
 {
-    [Route("api/ingredients")]
+    [Route("api/[controller]")]
     [ApiController]
     public class IngredientController : ControllerBase
     {

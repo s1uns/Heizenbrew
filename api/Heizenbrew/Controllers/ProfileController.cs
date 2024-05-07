@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace heisenbrew_api.Controllers
 {
-    [Route("api/users")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ProfileController : ControllerBase
     {
