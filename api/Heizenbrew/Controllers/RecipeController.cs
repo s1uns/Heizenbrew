@@ -76,7 +76,7 @@ namespace heisenbrew_api.Controllers
         /// If the operation is successful, it will return a corresponding message.
         /// </remarks>
         /// <returns>An IActionResult representing the result of the operation.</returns>
-        [HttpPost]
+        [HttpPost("create")]
         [Authorize]
         public async Task<IActionResult> CreateRecipe([FromBody] CreateRecipeDto createRecipeDto)
         {
@@ -93,7 +93,7 @@ namespace heisenbrew_api.Controllers
         /// If the operation is successful, it will return a corresponding message.
         /// </remarks>
         /// <returns>An IActionResult representing the result of the operation.</returns>
-        [HttpPut]
+        [HttpPut("edit")]
         [Authorize]
         public async Task<IActionResult> UpdateRecipe([FromBody] UpdateRecipeDto updateRecipeDto)
         {
