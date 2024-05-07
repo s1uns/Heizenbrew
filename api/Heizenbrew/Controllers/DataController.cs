@@ -25,7 +25,7 @@ namespace heisenbrew_api.Controllers
         /// If the operation is successful, it will return an .xlsx file.
         /// </remarks>
         /// <returns>An IActionResult representing the result of the operation.</returns>
-        [HttpGet("/export")]
+        [HttpGet("export")]
         [Authorize(Roles = nameof(Roles.Administrator))]
         [FileDownload(FileName = "DbSaved.xlsx")]
         public async Task<IActionResult> ExportData()
