@@ -124,8 +124,6 @@ namespace BLL.EquipmentManagement
 
                 var filteredEquipment = await _context.BrewerBrewingEquipment.Where(bBE => bBE.BrewerId == userId).Include(bBE => bBE.BrewingEquipment).ToListAsync();
 
-/*                var res = _mapper.Map<List<BrewerBrewingEquipmentShortInfoDto>>(filteredEquipment);
-*/
                 return _mapper.Map<List<BrewerBrewingEquipmentShortInfoDto>>(filteredEquipment);
             }
             catch (Exception ex)
